@@ -3,15 +3,18 @@
   border: 2px black solid;
 }
 header {
+  font-family:Arial, Helvetica, sans-serif;
 text-align: center;
 margin: auto;
-color: blueviolet;
+color: rgb(43, 104, 226);
 font-size: 70px;
+
 
 }
 #main {
-  width: 90%;
-  border: 20px solid rgb(255, 166, 0);
+  width: 95%;
+  background-color: aqua;
+  border: 20px solid rgb(16, 28, 84);
   margin: auto;
   padding: 20px;
   display: grid;
@@ -36,20 +39,28 @@ font-size: 70px;
   grid-auto-rows: (300px, auto);
 }
 #img-one {
-  border: 10px olive solid;
+  border: 10px rgb(89, 96, 219) solid;
   max-width: 400px;
   max-height: 400px;
   margin: auto;
 }
 #img-two {
-  border: 10px rgb(13, 0, 128) solid;
+  border: 10px rgb(68, 54, 201) solid;
   max-width: 400px;
   max-height: 400px;
   margin: auto;
 }
 #img-three {
-  border: 10px rgb(128, 0, 117) solid;
+  border: 10px rgb(47, 0, 128) solid;
   max-width: 400px;
   max-height: 400px;
   margin: auto;
 }
+#chart{
+  background-color: rgb(42, 142, 165);
+  color: green;
+  font-style: italic;
+  margin: auto
+  padding: 20px;
+}
+
