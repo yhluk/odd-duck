@@ -95,13 +95,13 @@ function renderChart() {
     data: {
       labels: productNames,
       datasets: [{
-        label: '# of Votes',
+        label: 'Votes',
         data: productVotes,
         borderWidth: 1,
         backgroundColor: 'red'
       },
       {
-        label: '# of Views',
+        label: 'Views',
         data: productViews,
         backgroundColor: 'salmon',
         borderWidth: 1
@@ -158,7 +158,7 @@ function handleShowResults() {
 //     resultsList.appendChild(liElem);
 //   }
 //   resultsBtn.removeEventListener('click', handleShowResults);
-// 
+//
 
 
 
