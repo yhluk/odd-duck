@@ -106,7 +106,7 @@ function renderChart() {
         backgroundColor: 'salmon',
         borderWidth: 1
       }
-      ,
+      // ,
       // {
       //   label: 'picking percentage %',
       //   data: productViews,
