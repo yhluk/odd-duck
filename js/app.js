@@ -15,12 +15,14 @@ let imgTwo = document.getElementById('img-two');
 let imgThree = document.getElementById('img-three');
 
 let resultsBtn = document.getElementById('show-results-btn');
-let resultsList = document.getElementById('results-list');
+let resultsBox = document.getElementById('results-box');
+//********CANVAS********************* */
 
+let canvasElem = document.getElementById('chart');
 
 // ***** CONSTRUCTOR FUNCTION *************************************************************************
 
-class Product{
+class Product {
   constructor(name) {
     this.name = name;
     this.img = `img/${name}.jpg`;
@@ -29,7 +31,7 @@ class Product{
     this.percentage = 0;
   }
   calculatePercentage() {
-    this.percentage = Math.floor(this.votes/this.views*100);
+    this.percentage = Math.floor(this.votes / this.views * 100);
   }
 }
 
@@ -40,19 +42,16 @@ class Product{
 // }
 // console.log(percentage());
 
-function randomIndex()
-{
+function randomIndex() {
   return Math.floor(Math.random() * productArray.length);
 }
 
-function renderImages()
-{
+function renderImages() {
   let imgOneIndex = randomIndex();
   let imgTwoIndex = randomIndex();
   let imgThreeIndex = randomIndex();
 
-  while(imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex===imgThreeIndex)
-  {
+  while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex === imgThreeIndex) {
     imgTwoIndex = randomIndex();
     imgThreeIndex = randomIndex();
   }
@@ -77,15 +76,63 @@ function renderImages()
 
 }
 
+function renderChart() {
+  let productNames = [];
+  let productVotes = [];
+  let productViews = [];
+  let productPercentage = [];
+
+  for (let i = 0; i < productArray.length; i++)
+  {
+    productNames.push(productArray[i].name);
+    productVotes.push(productArray[i].votes);
+    productViews.push(productArray[i].views);
+    productPercentage.push(productArray[i].percentage);
+  }
+
+  let chartObj = {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: '# of Votes',
+        data: productVotes,
+        borderWidth: 1,
+        backgroundColor: 'red'
+      },
+      {
+        label: '# of Views',
+        data: productViews,
+        backgroundColor: 'salmon',
+        borderWidth: 1
+      }
+      ,
+      // {
+      //   label: 'picking percentage %',
+      //   data: productViews,
+      //   borderWidth: 1
+      // }
+    ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  new Chart(canvasElem, chartObj);
+}
+
 // **** EVENT HANDLERS *******************************************************************************
 
-function handleClick(event){
+function handleClick(event) {
   let imgClicked = event.target.title;
 
-  for(let i=0; i<productArray.length; i++)
-  {
-    if(imgClicked===productArray[i].name)
-    {
+  for (let i = 0; i < productArray.length; i++) {
+    if (imgClicked === productArray[i].name) {
       productArray[i].votes++;
     }
   }
@@ -93,26 +140,26 @@ function handleClick(event){
 
   renderImages();
 
-  if(votingRounds===0)
-  {
+  if (votingRounds === 0) {
     imgContainer.removeEventListener('click', handleClick);
   }
 }
 
-function handleShowResults()
-{
-  if(votingRounds === 0){
-    for(let i = 0; i < productArray.length; i++)
-    {
-      productArray[i].calculatePercentage();
-      let liElem = document.createElement('li');
-      liElem.textContent = `${productArray[i].name} - views: ${productArray[i].views} & votes: ${productArray[i].votes} with picking rate of ${productArray[i].percentage}` ;
-      resultsList.appendChild(liElem);
-    }
-    resultsBtn.removeEventListener('click', handleShowResults);
+function handleShowResults() {
+  if (votingRounds === 0) {
+    renderChart();
   }
-
 }
+//   for(let i = 0; i < productArray.length; i++)
+//   {
+//     productArray[i].calculatePercentage();
+//     let liElem = document.createElement('li');
+//     liElem.textContent = `${productArray[i].name} - views: ${productArray[i].views} & votes: ${productArray[i].votes} with picking rate of ${productArray[i].percentage}` ;
+//     resultsList.appendChild(liElem);
+//   }
+//   resultsBtn.removeEventListener('click', handleShowResults);
+// 
+
 
 
 
@@ -139,7 +186,7 @@ let unicornProduct = new Product('unicorn');
 let waterCanProduct = new Product('water-can');
 let wineGlassProduct = new Product('wine-glass');
 
-productArray.push (bagProduct, bananaProduct, bathroomProduct, bootsProduct, breakfastProduct, bubblegumProduct, chairProduct, cthulhuProduct, dogDuckProduct, dragonProduct, penProduct, petSweepProduct, scissorsProduct, sharkProduct, sweepProduct, tauntaunProduct, unicornProduct,waterCanProduct, wineGlassProduct);
+productArray.push(bagProduct, bananaProduct, bathroomProduct, bootsProduct, breakfastProduct, bubblegumProduct, chairProduct, cthulhuProduct, dogDuckProduct, dragonProduct, penProduct, petSweepProduct, scissorsProduct, sharkProduct, sweepProduct, tauntaunProduct, unicornProduct, waterCanProduct, wineGlassProduct);
 
 renderImages();
 
